@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs';
+
+@Injectable()
 
 @Component({
   selector: 'app-faq',
@@ -7,7 +11,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FaqComponent implements OnInit {
 
-  constructor() { }
+  faqs: Array<any> | undefined;
+
+  constructor(private http: HttpClient) {
+    this.http.get<any>('https://jsonplaceholder.typicode.com/posts').pipe(map((response: Response) => response.json()));
+  }
 
   ngOnInit(): void {
   }
